@@ -1,0 +1,67 @@
+python
+java
+c++
+c
+sql
+mysql
+mongodb
+postgresql
+html
+css
+javascript
+typescript
+react
+angular
+vue
+nodejs
+express
+flask
+django
+fastapi
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+machine learning
+deep learning
+nlp
+computer vision
+tensorflow
+keras
+pytorch
+xgboost
+random forest
+decision tree
+svm
+logistic regression
+linear regression
+data analysis
+data cleaning
+data transformation
+data visualization
+power bi
+tableau
+excel
+aws
+azure
+gcp
+docker
+kubernetes
+git
+github
+langchain
+langgraph
+rag
+vector database
+faiss
+pinecone
+openai
+huggingface
+transformers
+oop
+dbms
+operating systems
+computer networks
+data structures
+algorithms
