@@ -1,7 +1,22 @@
 import re
 import nltk
 
-nltk.download('stopwords')
+# Tell NLTK where Render stores downloaded data
+nltk.data.path.append("/opt/render/nltk_data")
+
+print("NLTK PATHS:", nltk.data.path)
+
+try:
+    print("WORDNET LOCATION:", nltk.data.find("corpora/wordnet"))
+except Exception as e:
+    print("WORDNET ERROR:", e)
+
+# Check that the required datasets are available
+for resource in ["stopwords", "wordnet", "omw-1.4"]:
+    try:
+        nltk.data.find(f"corpora/{resource}")
+    except LookupError:
+        nltk.download(resource, download_dir="/opt/render/nltk_data")
 
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
