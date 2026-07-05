@@ -1,4 +1,9 @@
+import os
 import nltk
+
+DOWNLOAD_DIR = "/opt/render/nltk_data"
+
+os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 resources = [
     "punkt",
@@ -10,4 +15,6 @@ resources = [
 
 for resource in resources:
     print(f"Downloading {resource}...")
-    nltk.download(resource)
+    nltk.download(resource, download_dir=DOWNLOAD_DIR)
+
+print("NLTK data downloaded successfully!")
