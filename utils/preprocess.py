@@ -1,40 +1,39 @@
 import re
+import os
 import nltk
 
-DOWNLOAD_DIR = "/opt/render/nltk_data"
+# Add project-local nltk_data directory first, then fall back to system paths
+_LOCAL_NLTK_DIR = os.path.join(os.path.dirname(__file__), "..", "nltk_data")
+_LOCAL_NLTK_DIR = os.path.normpath(_LOCAL_NLTK_DIR)
 
-nltk.data.path.insert(0, DOWNLOAD_DIR)
-
-print("NLTK PATH:", nltk.data.path)
+if _LOCAL_NLTK_DIR not in nltk.data.path:
+    nltk.data.path.insert(0, _LOCAL_NLTK_DIR)
 
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
 
-def preprocess_text(text):
-    text  =text.lower()
 
-    #remove special character
-    text  = re.sub(r"[^a-zA-Z0-9\s]", "", text)
+def preprocess_text(text: str) -> str:
+    text = text.lower()
 
-    text = re.sub(r"\d+", "", text)
+    # Remove special characters
+    text = re.sub(r"[^a-zA-Z0-9\s]", "", text)
 
-    text = re.sub(r'\S*@\S*\s?', '', text)
+    # Remove standalone numbers
+    text = re.sub(r"\b\d+\b", "", text)
 
-    text = re.sub(r'\S+@\S+', '', text)
+    # Remove email addresses
+    text = re.sub(r"\S+@\S+", "", text)
 
-    #tokenization
-    # words = word_tokenize(text)
+    # Tokenize by whitespace (avoids punkt dependency)
     words = text.split()
 
-    #remove stopwords
+    # Remove stopwords
     stop_words = set(stopwords.words("english"))
     words = [word for word in words if word not in stop_words]
 
-    #lemmatization
+    # Lemmatize
     lemmatizer = WordNetLemmatizer()
     words = [lemmatizer.lemmatize(word) for word in words]
 
-    cleaned_text = " ".join(words)
-
-    return cleaned_text
+    return " ".join(words)

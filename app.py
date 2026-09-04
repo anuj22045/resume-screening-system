@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.pdf_reader import extract_text_from_pdf
+from utils.pdf_reader import extract_text
 from utils.preprocess import preprocess_text
 from utils.similarity import calculate_similarity
 from utils.experience import extract_experience
@@ -170,7 +170,7 @@ with tab_single:
             )
         else:
             with st.spinner("🤖 Analysing with NLP…"):
-                resume_text      = extract_text_from_pdf(uploaded_file)
+                resume_text      = extract_text(uploaded_file)
                 experience       = extract_experience(resume_text)
                 clean_resume     = preprocess_text(resume_text)
                 clean_jd         = preprocess_text(job_description)
@@ -309,7 +309,7 @@ with tab_ranking:
 
                 results = []
                 for rf in uploaded_resumes:
-                    resume_text     = extract_text_from_pdf(rf)
+                    resume_text     = extract_text(rf)
                     experience      = extract_experience(resume_text)
                     clean_resume    = preprocess_text(resume_text)
                     resume_skills   = sorted(extract_skills(clean_resume))
@@ -428,3 +428,6 @@ with tab_ranking:
                             unsafe_allow_html=True,
                         )
                         skill_tags(r["missing"], "missing") 
+
+
+# streamlit run app.py
